@@ -62,6 +62,11 @@ public ResponseEntity<?> delete(@PathVariable("id") int id){
       if(sProyecto.existsByNombreP(dtoproyecto.getNombreP())){
           return new ResponseEntity(new Mensaje("Ese nombre ya existe"), HttpStatus.BAD_REQUEST);
       }
+      
+      if(StringUtils.isBlank(dtoproyecto.getDescripcionP())){
+          return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+      }
+      
       Proyecto proyecto = new Proyecto(dtoproyecto.getNombreP(), dtoproyecto.getDescripcionP());
       sProyecto.save(proyecto);
       return new ResponseEntity(new Mensaje("Proyecto creado"), HttpStatus.OK);
@@ -78,6 +83,14 @@ public ResponseEntity<?> delete(@PathVariable("id") int id){
       if(StringUtils.isBlank(dtoproyecto.getNombreP())){
           return new ResponseEntity(new Mensaje("El campo no puede estar vacio"), HttpStatus.BAD_REQUEST);
       }
+      
+      if(StringUtils.isBlank(dtoproyecto.getDescripcionP())){
+          return new ResponseEntity(new Mensaje("El campo no puede estar vacio"), HttpStatus.BAD_REQUEST);
+      }
+      
+      
+      
+      
       
       Proyecto proyecto = sProyecto.getOne(id).get();
       
