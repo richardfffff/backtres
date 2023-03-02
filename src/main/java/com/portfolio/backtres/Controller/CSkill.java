@@ -27,69 +27,70 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/skill")
 @CrossOrigin(origins = "http://localhost:4200")
 public class CSkill {
-     @Autowired
+
+    @Autowired
     Sskill sSkill;
-    
+
     @GetMapping("/lista")
-    public ResponseEntity<List<Skill>> list(){
+    public ResponseEntity<List<Skill>> list() {
         List<Skill> list = sSkill.list();
         return new ResponseEntity(list, HttpStatus.OK);
     }
-    
+
     @GetMapping("/detail/{id}")
-    public ResponseEntity<Skill> getById(@PathVariable("id")int id){
-        if(!sSkill.existsById(id)){
+    public ResponseEntity<Skill> getById(@PathVariable("id") int id) {
+        if (!sSkill.existsById(id)) {
             return new ResponseEntity(new Mensaje("No existe el ID"), HttpStatus.BAD_REQUEST);
         }
-        
+
         Skill skill = sSkill.getOne(id).get();
         return new ResponseEntity(skill, HttpStatus.OK);
     }
-    
+
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") int id){
-        if(!sSkill.existsById(id)){
+    public ResponseEntity<?> delete(@PathVariable("id") int id) {
+        if (!sSkill.existsById(id)) {
             return new ResponseEntity(new Mensaje("No existe el ID"), HttpStatus.NOT_FOUND);
         }
         sSkill.delete(id);
         return new ResponseEntity(new Mensaje("Skill eliminado"), HttpStatus.OK);
     }
-    
+
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody dtoSkill dtoskill){
-        if(StringUtils.isBlank(dtoskill.getNombreK())){
+    public ResponseEntity<?> create(@RequestBody dtoSkill dtoskill) {
+        if (StringUtils.isBlank(dtoskill.getNombreK())) {
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
-        if(sSkill.existsByNombreK(dtoskill.getNombreK())){
+        if (sSkill.existsByNombreK(dtoskill.getNombreK())) {
             return new ResponseEntity(new Mensaje("Ese nombre ya existe"), HttpStatus.BAD_REQUEST);
         }
-        
+
         Skill skill = new Skill(dtoskill.getNombreK(), dtoskill.getPercentK());
-        
+
         sSkill.save(skill);
         return new ResponseEntity(new Mensaje("Skill creado"), HttpStatus.OK);
     }
-    
+
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody dtoSkill dtoskill){
-        if(!sSkill.existsById(id)){
+    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody dtoSkill dtoskill) {
+        if (!sSkill.existsById(id)) {
             return new ResponseEntity(new Mensaje("No existe el ID"), HttpStatus.NOT_FOUND);
         }
-        if(sSkill.existsByNombreK(dtoskill.getNombreK()) && sSkill.getByNombreK(dtoskill.getNombreK()).get().getId() != id){
+        if (sSkill.existsByNombreK(dtoskill.getNombreK()) && sSkill.getByNombreK(dtoskill.getNombreK()).get().getId() != id) {
             return new ResponseEntity(new Mensaje("Ese nombre ya existe"), HttpStatus.BAD_REQUEST);
         }
-        
-        if(StringUtils.isBlank(dtoskill.getNombreK())){
+
+        if (StringUtils.isBlank(dtoskill.getNombreK())) {
             return new ResponseEntity(new Mensaje("Este campo no puede estar vacio"), HttpStatus.BAD_REQUEST);
         }
-        
+
         Skill skill = sSkill.getOne(id).get();
-        
+
         skill.setNombreK(dtoskill.getNombreK());
         skill.setPercentK(dtoskill.getPercentK());
-        
+
         sSkill.save(skill);
-        
+
         return new ResponseEntity(new Mensaje("Skill actualizado"), HttpStatus.OK);
     }
 }
