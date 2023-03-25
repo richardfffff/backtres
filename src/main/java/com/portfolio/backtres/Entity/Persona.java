@@ -26,6 +26,10 @@ public class Persona {
     private String apellido;
     
     @NotNull
+    @Size(min = 1, max = 50, message = "no cumple con la cantidad de caracteres")
+    private String resumen;
+    
+    @NotNull
     private String descripcion;
     
     private String img;
@@ -33,11 +37,20 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(String nombre, String apellido, String descripcion, String img) {
+    public Persona(String nombre, String apellido, String resumen, String descripcion, String img) {
         this.nombre = nombre;
         this.apellido = apellido;
+        this.resumen = resumen;
         this.descripcion = descripcion;
         this.img = img;
+    }
+
+    public String getResumen() {
+        return resumen;
+    }
+
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
     }
 
     public int getId() {

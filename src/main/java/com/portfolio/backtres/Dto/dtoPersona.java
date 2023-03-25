@@ -14,6 +14,8 @@ public class dtoPersona {
     @NotBlank
     private String apellido;
     @NotBlank
+    private String resumen;
+    @NotBlank
     private String descripcion;
     @NotBlank
     private String img;
@@ -21,11 +23,20 @@ public class dtoPersona {
     public dtoPersona() {
     }
 
-    public dtoPersona(String nombre, String apellido, String descripcion, String img) {
+    public dtoPersona(String nombre, String apellido, String resumen, String descripcion, String img) {
         this.nombre = nombre;
         this.apellido = apellido;
+        this.resumen = resumen;
         this.descripcion = descripcion;
         this.img = img;
+    }
+
+    public String getResumen() {
+        return resumen;
+    }
+
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
     }
 
     public String getNombre() {
