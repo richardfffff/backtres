@@ -23,6 +23,7 @@ com\portfolio\backtres\Repository\RExperiencia.class
 com\portfolio\backtres\Dto\dtoPersona.class
 com\portfolio\backtres\Security\jwt\JwtProvider.class
 com\portfolio\backtres\Security\Service\UserDetailsImpl.class
+com\portfolio\backtres\WebConfig.class
 com\portfolio\backtres\Security\Service\RolService.class
 com\portfolio\backtres\Security\Entity\UsuarioPrincipal.class
 com\portfolio\backtres\Controller\CEducacion.class
